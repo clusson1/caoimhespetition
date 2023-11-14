@@ -1,10 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Petition</title>
+    <link rel="stylesheet" type="text/css" href="/viewstyle.css">
 </head>
 <body>
+<!--Heading-->
+<h2>View Petitions</h2>
+<!--Displays all petitions one by one iterating through the Hashmap-->
+<ul class="clearfix">
+    <li th:each="petition : ${petitions}">
+        <div class="card">
+            <div class="card-title" th:text="${petition.title}"></div>
+            <div class="card-author">by <span th:text="${petition.author}"></span></div>
+            <div class="card-description" th:text="${petition.description}"></div>
 
+            <ul class="signature-list">
+                <li th:each="signature : ${petition.signatures}" class="signature-item">
+                    <span th:text="${signature.name} + ' - ' + ${signature.email}"></span>
+                </li>
+            </ul>
+
+            <button class="toggle-form">Sign Petition</button>
+            <!--Signature form-->
+            <div class="form-container">
+                <form th:action="@{'/signpetition/' + ${petition.title}}" method="post">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                    <button type="submit">Sign Petition</button>
+                </form>
+            </div>
+        </div>
+    </li>
+</ul>
+<!--Once Sign Petition button is selected this script allows signature form to be displayed-->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var toggleButtons = document.querySelectorAll('.toggle-form');
+
+        toggleButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                var formContainer = this.nextElementSibling;
+                formContainer.style.display = (formContainer.style.display === 'none' || formContainer.style.display === '') ? 'block' : 'none';
+            });
+        });
+    });
+</script>
 </body>
 </html>
