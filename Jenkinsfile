@@ -14,21 +14,21 @@ pipeline {
                 sh 'mvn compiler:compile'
             }
         }
-//         stage ('Exec') {
-//             steps {
-//                 sh 'mvn exec:java'
-//             }
-//         }
         stage ('Package') {
             steps {
                 sh 'mvn package'
             }
         }
-    }
-    post {
-        success {
-            archiveArtifacts allowEmptyArchive: true,
+        stage ('Archive') {
+            steps {
+                archiveArtifacts allowEmptyArchive: true,
                 artifacts: '**/caoimhespetition*.war'
+            }
+        }
+        stage ('Deploy') {
+            steps {
+                sh 'docker build -f Dockerfile -t myapp . '
+            }
         }
     }
 }
