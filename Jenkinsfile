@@ -27,9 +27,10 @@ pipeline {
         }
         stage ('Deploy') {
             steps {
+                input('Deploy Application?')
                 sh 'docker build -f Dockerfile -t myapp . '
                 sh 'docker rm -f "myappcontainer" || true'
-                sh 'docker run --name "myappcontainer" -p 8080:8081 --detach myapp:latest'
+                sh 'docker run --name "myappcontainer" -p 9090:8081 --detach myapp:latest'
             }
         }
     }
