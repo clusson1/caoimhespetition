@@ -13,6 +13,7 @@ pipeline {
                 sh 'mvn dependency:copy-dependencies'
                 sh 'mvn compiler:compile'
             }
+        }
          stage ('Test') {
             steps {
                 
