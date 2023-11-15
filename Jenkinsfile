@@ -31,8 +31,8 @@ pipeline {
         }
         stage ('Deploy') {
             steps {
-                sh 'docker rm -f "myappcontainer" || true'
                 input('Deploy Application?')
+                sh 'docker rm -f "myappcontainer" || true'
                 sh 'docker build -f Dockerfile -t myapp . '
                 sh 'docker run --name "myappcontainer" -p 9090:8081 --detach myapp:latest'
             }
