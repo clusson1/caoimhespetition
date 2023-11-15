@@ -7,11 +7,15 @@ pipeline {
                 git 'https://github.com/clusson1/caoimhespetition.git'
             }
         }
-        stage ('build') {
+        stage ('Build') {
             steps {
                 sh 'mvn clean:clean'
                 sh 'mvn dependency:copy-dependencies'
                 sh 'mvn compiler:compile'
+            }
+         stage ('Test') {
+            steps {
+                
             }
         }
         stage ('Package') {
@@ -27,9 +31,9 @@ pipeline {
         }
         stage ('Deploy') {
             steps {
+                sh 'docker rm -f "myappcontainer" || true'
                 input('Deploy Application?')
                 sh 'docker build -f Dockerfile -t myapp . '
-                sh 'docker rm -f "myappcontainer" || true'
                 sh 'docker run --name "myappcontainer" -p 9090:8081 --detach myapp:latest'
             }
         }
