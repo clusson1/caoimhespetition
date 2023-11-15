@@ -28,7 +28,7 @@ pipeline {
     post {
         success {
             archiveArtifacts allowEmptyArchive: true,
-                artifacts: '**/caoimhespetitions*.war'
+                artifacts: '**/caoimhespetition*.war'
         }
     }
 }
