@@ -93,6 +93,18 @@ public class CaoimhespetitionApplication implements CommandLineRunner {
 		return "viewpetitions";
 	}
 
+	@RequestMapping("/petitionDetails/{title}")
+	public String petitionDetails(@PathVariable String title, Model model) {
+		Petition petition = petitions.get(title);
+		if (petition != null) {
+			model.addAttribute("petition", petition);
+			return "petitionDetails";
+		} else {
+			// Handle the case where the petition with the given title is not found
+			return "error"; // You can create an error.html page for error handling
+		}
+	}
+
 	//Redirects /submitPetition to viewpetitions to see all petitions
 	@PostMapping("/submitpetition")
 	public String submitPetition(Petition petition) {

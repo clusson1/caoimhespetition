@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Petition Details</title>
+  <link rel="stylesheet" type="text/css" href="/individual.css">
+</head>
+<body>
+<h2>Petition Details</h2>
+<div class="card">
+  <div class="card-title" th:text="${petition.title}"></div>
+  <div class="card-author">by <span th:text="${petition.author}"></span></div>
+  <div class="card-description" th:text="${petition.description}"></div>
+
+  <ul class="signature-list">
+    <li th:each="signature : ${petition.signatures}" class="signature-item">
+      <span th:text="${signature.name} + ' - ' + ${signature.email}"></span>
+    </li>
+  </ul>
+
+  <!-- Signature form -->
+  <div class="form-container">
+    <form th:action="@{'/signpetition/' + ${petition.title}}" method="post">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <button type="submit">Sign Petition</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>
