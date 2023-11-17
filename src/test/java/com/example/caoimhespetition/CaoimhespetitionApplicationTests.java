@@ -27,4 +27,12 @@ class CaoimhespetitionApplicationTests {
 				.andExpect(MockMvcResultMatchers.view().name("index"));
 	}
 
+	// Makes sure '/createpetitions' is working and returns createpetitions.html
+	@Test
+	void createPetitionsEndpointShouldReturnCreatePetitions() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/createpetitions"))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.view().name("createpetitions"));
+	}
+
 }
