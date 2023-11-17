@@ -6,7 +6,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
@@ -79,5 +78,16 @@ class CaoimhespetitionApplicationTests {
 						.param("email", "test@test.com")
 				)
 				.andExpect(MockMvcResultMatchers.redirectedUrl("/viewpetitions"));
+	}
+
+	// Passes a search to make sure '/search' is working, the petition is in the Hashmap and the result is returned on
+	// with searchresults.html
+	@Test
+	void searchPetitionsEndpointShouldReturnSearchResults() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/search")
+						.param("searchTerm", "Wild"))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.view().name("searchresults"))
+				.andExpect(MockMvcResultMatchers.model().attributeExists("petitions"));
 	}
 }
