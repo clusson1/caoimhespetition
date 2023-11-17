@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Petition Details</title>
-  <link rel="stylesheet" type="text/css" href="/css/individual.css">
+  <title>Search Results</title>
+  <link rel="stylesheet" type="text/css" href="/css/viewstyle.css">
   <style>
     /* Additional styles for the navigation bar */
     body {
@@ -46,6 +46,7 @@
     }
 
     h2,
+    .clearfix,
     .card-title,
     .card-author {
       margin: 0;
@@ -80,28 +81,17 @@
   </ul>
 </nav>
 <!--Heading-->
-<h2>Petition Details</h2>
-<!--Petition Card-->
-<div class="card">
-  <div class="card-title" th:text="${petition.title}"></div>
-  <div class="card-author">by <span th:text="${petition.author}"></span></div>
-  <div class="card-description" th:text="${petition.description}"></div>
-  <!--Signature List-->
-  <ul class="signature-list">
-    <li th:each="signature : ${petition.signatures}" class="signature-item">
-      <span th:text="${signature.name} + ' - ' + ${signature.email}"></span>
-    </li>
-  </ul>
-  <!-- Signature form -->
-  <div class="form-container">
-    <form th:action="@{'/signpetition/' + ${petition.title}}" method="post">
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required>
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
-      <button type="submit">Sign Petition</button>
-    </form>
-  </div>
-</div>
+<h2>Search Results</h2><br>
+<!--Petitions Cards which match search-->
+<ul class="clearfix">
+  <li th:each="petition : ${petitions}">
+    <div class="card">
+      <a th:href="@{'/petitionDetails/' + ${petition.title}}">
+        <div class="card-title" th:text="${petition.title}"></div>
+      </a>
+      <div class="card-author">by <span th:text="${petition.author}"></span></div>
+    </div>
+  </li>
+</ul>
 </body>
 </html>

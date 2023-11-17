@@ -1,14 +1,12 @@
 package com.example.caoimhespetition;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,11 +16,10 @@ import java.util.Map;
 @SpringBootApplication
 @Controller
 public class CaoimhespetitionApplication implements CommandLineRunner {
-
 	// Hashmap where all petitions will be stored
 	private final Map<String, Petition> petitions = new HashMap<>();
 
-	// Method to fill dummy data
+	// Dummy data
 	@Override
 	public void run(String... args) {
 		// First dummy petition
@@ -93,16 +90,19 @@ public class CaoimhespetitionApplication implements CommandLineRunner {
 		return "viewpetitions";
 	}
 
+	// Mapping for /searchpetitions
+	@RequestMapping("/searchpetitions")
+	public String searchPetitions(Model model) {
+		model.addAttribute("petitions", petitions.values());
+		return "searchpetitions";
+	}
+
+	// Mapping for individual /petitiondetails
 	@RequestMapping("/petitionDetails/{title}")
 	public String petitionDetails(@PathVariable String title, Model model) {
 		Petition petition = petitions.get(title);
-		if (petition != null) {
-			model.addAttribute("petition", petition);
-			return "petitionDetails";
-		} else {
-			// Handle the case where the petition with the given title is not found
-			return "error"; // You can create an error.html page for error handling
-		}
+		model.addAttribute("petition", petition);
+		return "petitionDetails";
 	}
 
 	//Redirects /submitPetition to viewpetitions to see all petitions
@@ -122,6 +122,19 @@ public class CaoimhespetitionApplication implements CommandLineRunner {
 		return "redirect:/viewpetitions";
 	}
 
+	// Mapping for /search
+	@RequestMapping("/search")
+	public String searchPetitions(HttpServletRequest request, Model model) {
+		String searchTerm = request.getParameter("searchTerm");
+		List<Petition> searchResults = new ArrayList<>();
+		for (Petition petition : petitions.values()) {
+			if (petition.getTitle().toLowerCase().contains(searchTerm.toLowerCase())) {
+				searchResults.add(petition);
+			}
+		}
+		model.addAttribute("petitions", searchResults);
+		return "searchresults";
+	}
 	// Runs the Application
 	public static void main(String[] args) {
 		SpringApplication.run(CaoimhespetitionApplication.class, args);
@@ -173,11 +186,11 @@ public class CaoimhespetitionApplication implements CommandLineRunner {
 
 		// Constructors
 		public Signature(String name, String email) {
+			this.name = name;
+			this.email = email;
 		}
 
-		public Signature() {
-
-		}
+		public Signature() {}
 
 		// Getters and setters
 		public String getName() {

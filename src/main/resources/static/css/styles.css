@@ -1,4 +1,4 @@
-/*Style sheet for index*/
+/* Style sheet for index */
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
@@ -10,7 +10,7 @@ nav {
     background-color: #333;
 }
 
-ul {
+.navbar {
     list-style-type: none;
     margin: 0;
     padding: 0;

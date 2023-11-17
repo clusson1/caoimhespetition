@@ -5,14 +5,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Petitions</title>
     <link rel="stylesheet" type="text/css" href="/css/viewstyle.css">
+    <style>
+        /* Additional styles for the navigation bar */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        nav {
+            background-color: #333;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .navbar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .navbar li {
+            float: left;
+        }
+
+        .navbar li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        .navbar li a:hover:not(.active) {
+            background-color: #555;
+        }
+
+        .navbar .active {
+            background-color: #04AA6D;
+        }
+
+        h2,
+        .clearfix,
+        .petition-card,
+        .card-title,
+        .card-author {
+            margin: 0;
+            padding: 0;
+            border: none;
+            box-shadow: none;
+            width: auto;
+            float: none;
+        }
+
+        .petition-card {
+            background-color: #fff;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: calc(50% - 40px);
+            display: inline-block;
+        }
+
+        .card-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .card-author {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-<!--Heading-->
-<h2>View Petitions</h2>
-<!--Displays all petitions one by one iterating through the Hashmap-->
+<!--Navigation bar where all pages can be accessed-->
+<nav>
+    <ul class="navbar">
+        <li><a class="active" href="/">Home</a></li>
+        <li><a href="/createpetitions">Create a Petition</a></li>
+        <li><a href="/viewpetitions">View all Petitions</a></li>
+        <li><a href="/searchpetitions">Search for Petitions</a></li>
+    </ul>
+</nav>
+<!-- Displays all petitions iterating through the Hashmap -->
 <ul class="clearfix">
     <li th:each="petition : ${petitions}">
-        <div class="card">
+        <div class="petition-card">
             <!-- Link to the detailed view -->
             <a th:href="@{'/petitionDetails/' + ${petition.title}}">
                 <div class="card-title" th:text="${petition.title}"></div>
