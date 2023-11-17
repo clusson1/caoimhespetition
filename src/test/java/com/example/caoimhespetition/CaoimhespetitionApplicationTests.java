@@ -6,6 +6,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
@@ -59,5 +60,14 @@ class CaoimhespetitionApplicationTests {
 				.andExpect(MockMvcResultMatchers.view().name("petitionDetails"));
 	}
 
-
+	// Passes petition to make sure '/submitpetition' is working and redirects to /viewpetitions
+	@Test
+	void submitPetitionEndpointShouldRedirectToViewPetitions() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.post("/submitpetition")
+						.param("title", "Test Petition")
+						.param("author", "Test Test")
+						.param("description", "Test petition")
+				)
+				.andExpect(MockMvcResultMatchers.redirectedUrl("/viewpetitions"));
+	}
 }
