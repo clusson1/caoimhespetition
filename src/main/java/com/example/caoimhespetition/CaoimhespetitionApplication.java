@@ -105,7 +105,7 @@ public class CaoimhespetitionApplication implements CommandLineRunner {
 		return "petitionDetails";
 	}
 
-	//Redirects /submitPetition to viewpetitions to see all petitions
+	//Redirects /submitpetition to viewpetitions to see all petitions
 	@PostMapping("/submitpetition")
 	public String submitPetition(Petition petition) {
 		petitions.put(petition.getTitle(), petition);

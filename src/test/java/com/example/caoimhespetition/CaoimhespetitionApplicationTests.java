@@ -50,4 +50,14 @@ class CaoimhespetitionApplicationTests {
 				.andExpect(MockMvcResultMatchers.status().isOk())
 				.andExpect(MockMvcResultMatchers.view().name("searchpetitions"));
 	}
+
+	// Makes sure '/petitionDetails/{title}' is working with a petition and returns petitionDetails.html
+	@Test
+	void petitionDetailsEndpointShouldReturnPetitionDetails() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/petitionDetails/{title}", "Wild Cats"))
+				.andExpect(MockMvcResultMatchers.status().isOk())
+				.andExpect(MockMvcResultMatchers.view().name("petitionDetails"));
+	}
+
+
 }
