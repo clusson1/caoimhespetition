@@ -70,4 +70,14 @@ class CaoimhespetitionApplicationTests {
 				)
 				.andExpect(MockMvcResultMatchers.redirectedUrl("/viewpetitions"));
 	}
+
+	// Passes signature to make sure '/signpetition' is working for a select petition and redirects to /viewpetitions
+	@Test
+	void signPetitionEndpointShouldRedirectToViewPetitions() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.post("/signpetition/{title}", "Wild Cats")
+						.param("name", "Test Test")
+						.param("email", "test@test.com")
+				)
+				.andExpect(MockMvcResultMatchers.redirectedUrl("/viewpetitions"));
+	}
 }
