@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Petition</title>
-    <link rel="stylesheet" type="text/css" href="/css/formstyle.css">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/formstyle.css}">
 </head>
 <body>
 <!--Navigation bar where all pages can be accessed-->
 <nav>
     <ul class="navbar">
-        <li><a class="active" href="/">Home</a></li>
-        <li><a href="/createpetitions">Create a Petition</a></li>
-        <li><a href="/viewpetitions">View all Petitions</a></li>
-        <li><a href="/searchpetitions">Search for Petitions</a></li>
+        <li><a class="active" th:href="@{/}">Home</a></li>
+        <li><a th:href="@{/createpetitions}">Create a Petition</a></li>
+        <li><a th:href="@{/viewpetitions}">View all Petitions</a></li>
+        <li><a th:href="@{/searchpetitions}">Search for Petitions</a></li>
     </ul>
 </nav>
 <!--Heading-->
