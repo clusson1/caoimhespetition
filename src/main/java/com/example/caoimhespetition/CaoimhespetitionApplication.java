@@ -69,6 +69,18 @@ public class CaoimhespetitionApplication implements CommandLineRunner {
 		dummyPetition3.getSignatures().add(johnnyNoggins);
 		dummyPetition3.getSignatures().add(janeDoe);
 		petitions.put(dummyPetition3.getTitle(), dummyPetition3);
+
+		// Fourth dummy petition
+		Petition dummyPetition4 = new Petition();
+		dummyPetition4.setTitle("Housing Crisis");
+		dummyPetition4.setAuthor("Barney Day");
+		dummyPetition4.setDescription("Help to bring more awareness to housing in Ireland!");
+		dummyPetition4.getSignatures().add(joeBloggs);
+		dummyPetition4.getSignatures().add(jennyGail);
+		dummyPetition4.getSignatures().add(johnnyNoggins);
+		dummyPetition4.getSignatures().add(janeDoe);
+		dummyPetition4.getSignatures().add(johnDoe);
+		petitions.put(dummyPetition4.getTitle(), dummyPetition4);
 	}
 
 	// Mapping for /

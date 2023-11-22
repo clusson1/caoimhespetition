@@ -15,6 +15,7 @@ class CaoimhespetitionApplicationTests {
 	@Autowired
 	private MockMvc mockMvc;
 
+	// Makes sure that the context loads successfully
 	@Test
 	void contextLoads() {
 	}
@@ -81,7 +82,7 @@ class CaoimhespetitionApplicationTests {
 	}
 
 	// Passes a search to make sure '/search' is working, the petition is in the Hashmap and the result is returned on
-	// with searchresults.html
+	// searchresults.html
 	@Test
 	void searchPetitionsEndpointShouldReturnSearchResults() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/search")
